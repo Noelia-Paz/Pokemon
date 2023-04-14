@@ -11,7 +11,7 @@ const pokemonRouter = Router();
 
 pokemonRouter.get('/name', getPokemonNameHandler);
 
-pokemonRouter.get('/:id', getPokemonIdHandler);
+pokemonRouter.get('/:idPokemon', getPokemonIdHandler);
 
 pokemonRouter.get('/', getPokemonHandler);
 

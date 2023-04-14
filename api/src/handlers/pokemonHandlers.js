@@ -3,39 +3,63 @@ const {
   getPokemonId,
   getPokemonName,
   createPokemon,
-} = require('../constrollers/pokemonController');
+} = require('../controllers/pokemonController');
 
-const getPokemonHandler = (req, res) => {
+const getPokemonHandler = async (req, res) => {
   try {
-    send('estoy en pokemos');
+    const pokemons = await getAllPokemons();
+    res.status(200).json(pokemons);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-const getPokemonIdHandler = (req, res) => {
-  const id = req.params.id;
-  res.status(200).send(`Estos son los detalles del pokemon con ID ${id}`);
+const getPokemonIdHandler = async (req, res) => {
+  const { idPokemon } = req.params;
+  const source = isNaN(idPokemon) ? 'bdd' : 'api';
+  try {
+    const pokemon = await getPokemonId(idPokemon, source);
+    res.status(200).json(pokemon);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const getPokemonNameHandler = async (req, res) => {
+  const name = req.query.name.toLowerCase();
+  const pokemonName = await getPokemonName(name);
+  res.status(200).json(pokemonName);
   try {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-const getPokemonNameHandler = (req, res) => {
-  const { name } = req.query;
-  console.log(name);
-
-  res.status(200).send(`Estos son los pokemons con nombre ${name}`);
+const createPokemonHandler = async (req, res) => {
+  const {
+    name,
+    life,
+    stroke,
+    defending,
+    speed,
+    height,
+    weight,
+    image,
+    typePokemonId,
+  } = req.body;
   try {
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
-const createPokemonHandler = (req, res) => {
-  res.status(200).send('estoy posteando un pokemon');
-  try {
+    const newPokemon = await createPokemon(
+      name,
+      life,
+      stroke,
+      defending,
+      speed,
+      height,
+      weight,
+      image,
+      typePokemonId
+    );
+    res.status(200).json(newPokemon);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

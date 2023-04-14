@@ -1,11 +1,25 @@
-const { getAllTypePokemons } = require('../constrollers/typePokemonController');
+const {
+  getAllTypePokemons,
+  createType,
+} = require('../controllers/typePokemonController');
 
-const getTypePokemonHandler = (req, res) => {
+const getTypePokemonHandler = async (req, res) => {
+  const { name, pokemonId } = req.body;
   try {
-    send('estoy en pokemos tipos');
+    const pokemons = await getAllTypePokemons(name, pokemonId);
+    res.status(200).json(pokemons);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
+/*const createTypePokemonHandler = async (req, res) => {
+  const { name, pokemonId } = req.body;
+  try {
+    const newType = await createType(name, pokemonId);
+    res.status(200).json(newType);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};*/
 module.exports = { getTypePokemonHandler };
