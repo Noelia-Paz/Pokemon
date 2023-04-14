@@ -27,26 +27,18 @@ const getPokemonIdHandler = async (req, res) => {
 
 const getPokemonNameHandler = async (req, res) => {
   const name = req.query.name.toLowerCase();
-  const pokemonName = await getPokemonName(name);
-  res.status(200).json(pokemonName);
+
   try {
+    const pokemonName = await getPokemonName(name);
+    res.status(200).json(pokemonName);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
 const createPokemonHandler = async (req, res) => {
-  const {
-    name,
-    life,
-    stroke,
-    defending,
-    speed,
-    height,
-    weight,
-    image,
-    typePokemonId,
-  } = req.body;
+  const { name, life, stroke, defending, speed, height, weight, image, type } =
+    req.body;
   try {
     const newPokemon = await createPokemon(
       name,
@@ -57,7 +49,7 @@ const createPokemonHandler = async (req, res) => {
       height,
       weight,
       image,
-      typePokemonId
+      type
     );
     res.status(200).json(newPokemon);
   } catch (error) {

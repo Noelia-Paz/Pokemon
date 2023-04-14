@@ -26,6 +26,7 @@ const getPokemonId = async (idPokemon, source) => {
       await axios.get(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
     ).data;
     const pokemonApi = {
+      id: pokemon.id,
       name: pokemon.name,
       image: pokemon.sprites.other.dream_world.front_default,
       life: pokemon.stats[0].base_stat,
@@ -47,7 +48,7 @@ const getPokemonId = async (idPokemon, source) => {
         },
       },
     });
-    if (!pokemon) throw Error('El pokemon no existe');
+    if (!pokemon) throw Error('El id no existe');
     return pokemon;
   }
 };
@@ -71,9 +72,9 @@ const getPokemonName = async name => {
       height: apiPokemonsName.height,
       weight: apiPokemonsName.weight,
     };
+
     return [pokemonApi];
   }
-
   return databasePokemonName;
 };
 
@@ -86,7 +87,7 @@ const createPokemon = async (
   height,
   weight,
   image,
-  typePokemonId
+  type
 ) => {
   const newPokemon = await Pokemon.create({
     name,
@@ -99,7 +100,7 @@ const createPokemon = async (
     image,
   });
 
-  await newPokemon.addTypePokemon(typePokemonId);
+  await newPokemon.addTypePokemon(type);
   return newPokemon;
 };
 
