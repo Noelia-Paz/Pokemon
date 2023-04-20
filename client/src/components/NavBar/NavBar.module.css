@@ -1,0 +1,30 @@
+.navBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 60px;
+    padding-left: 85px;
+  }
+  
+  .link {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .salir {
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    padding: 3px 7px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+  }

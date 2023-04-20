@@ -1,0 +1,33 @@
+.divBody{
+    background: url('../../img/pokemonLanding.jpg') no-repeat ;
+    height: 100vh;
+    width: inherit;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    color: black;
+    font-size: 2rem;
+    text-align: center;
+    text-shadow: 2px 2px 4px snow;  
+}
+
+.button{
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 15px 140px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    margin: 4px 2px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+}

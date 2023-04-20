@@ -1,0 +1,22 @@
+.bodySearch{
+    padding: 10px;
+    display: flex;
+    flex-direction: inherit;
+    justify-content: flex-end;
+}
+
+.button{
+    background-color: blue;
+    color:  white;
+    font-size: medium;
+    border: none;
+    border-radius:10px;
+}
+
+.input{
+    margin: 5px;
+    padding: 5px;
+    border-block-color: 1px sol;
+    border: 3px solid lightblue;
+    border-radius: 6px;
+}

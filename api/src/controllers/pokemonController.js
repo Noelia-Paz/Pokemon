@@ -3,28 +3,53 @@ const axios = require('axios');
 const { Pokemon, TypePokemon } = require('../db');
 
 const getAllPokemons = async () => {
-  const databasePokemons = await Pokemon.findAll();
-  const pokemonsInfo = databasePokemons.map(pokemon => {
+  const databasePokemons = await Pokemon.findAll({
+    include: [
+      {
+        model: TypePokemon,
+        attributes: ['name'],
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+  });
+
+  const pokemonDataDb = databasePokemons.map(pokemon => {
     return {
+      id: pokemon.id,
       name: pokemon.name,
       image: pokemon.image,
+      type: pokemon.typePokemons.map(type => type.name),
     };
   });
 
-  const apiPokemons = (
-    await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=20&limit=20`)
-  ).data;
+  const apiPokemons = await axios.get(`https://pokeapi.co/api/v2/pokemon`);
+  const results = apiPokemons.data.results;
+  const promises = results.map(result => axios.get(result.url));
+  const pokemonResponses = await Promise.all(promises);
+  const pokemons = pokemonResponses.map(response => response.data);
 
-  return [...pokemonsInfo, ...apiPokemons.results];
+  const pokemonsDataApi = pokemons.map(pokemon => {
+    return {
+      id: pokemon.id,
+      name: pokemon.name,
+      image: pokemon.sprites.front_default,
+      type: pokemon.types.map(type => type.type.name),
+    };
+  });
+
+  return [...pokemonDataDb, ...pokemonsDataApi];
 };
 
 const getPokemonId = async (idPokemon, source) => {
   let pokemon;
 
   if (source === 'api') {
-    pokemon = (
-      await axios.get(`https://pokeapi.co/api/v2/pokemon/${idPokemon}`)
-    ).data;
+    const response = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${idPokemon}`
+    );
+    pokemon = response.data;
     const pokemonApi = {
       id: pokemon.id,
       name: pokemon.name,
@@ -35,7 +60,7 @@ const getPokemonId = async (idPokemon, source) => {
       speed: pokemon.stats[5].base_stat,
       height: pokemon.height,
       weight: pokemon.weight,
-      types: pokemon.types.map(type => type.type.name),
+      type: pokemon.types.map(type => type.type.name),
     };
     return pokemonApi;
   } else {
@@ -49,7 +74,19 @@ const getPokemonId = async (idPokemon, source) => {
       },
     });
     if (!pokemon) throw Error('El id no existe');
-    return pokemon;
+    const pokemonDatabase = {
+      id: pokemon.id,
+      name: pokemon.name,
+      image: pokemon.image,
+      life: pokemon.life,
+      stroke: pokemon.stroke,
+      defending: pokemon.defending,
+      speed: pokemon.speed,
+      height: pokemon.height,
+      weight: pokemon.weight,
+      type: pokemon.typePokemons.map(type => type.name),
+    };
+    return pokemonDatabase;
   }
 };
 
