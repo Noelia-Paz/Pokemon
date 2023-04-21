@@ -65,119 +65,127 @@ const Form = () => {
 
   return (
     <div className={styles.bodyForm}>
-      <h1 className={styles.h1}>Crea un nuevo Pokemon!</h1>
+      <h1 className={styles.h1}>Create a new Pokemon!</h1>
       <form onSubmit={submitHandler} className={styles.form}>
-        <div>
-          <label htmlFor="name" className={styles.label}>
-            Name:
-          </label>
-          <input
-            type="text"
-            value={form.name}
-            onChange={changeHandler}
-            name="name"
-            className={styles.input}
-          />
-          <p className={styles.danger}>{errors.name}</p>
+        <div className={styles.inputGroup}>
+          <div>
+            <label htmlFor="name" className={styles.label}>
+              Name:
+            </label>
+            <input
+              type="text"
+              value={form.name}
+              onChange={changeHandler}
+              name="name"
+              className={styles.input}
+            />
+            <p className={styles.danger}>{errors.name}</p>
+          </div>
+          <div>
+            <label htmlFor="image" className={styles.label}>
+              Image:
+            </label>
+            <input
+              type="text"
+              value={form.image}
+              onChange={changeHandler}
+              name="image"
+              className={styles.input}
+            />
+            <p className={styles.danger}>{errors.image}</p>
+          </div>
         </div>
-        <div>
-          <label htmlFor="image" className={styles.label}>
-            Image:
-          </label>
-          <input
-            type="text"
-            value={form.image}
-            onChange={changeHandler}
-            name="image"
-            className={styles.input}
-          />
-          <p className={styles.danger}>{errors.image}</p>
+        <div className={styles.inputGroup}>
+          <div>
+            <label htmlFor="life" className={styles.label}>
+              Life:
+            </label>
+            <input
+              type="number"
+              value={form.life}
+              onChange={changeHandler}
+              name="life"
+              className={styles.input}
+            />
+            <p className={styles.danger}>{errors.life}</p>
+          </div>
+          <div>
+            <label htmlFor="stroke" className={styles.label}>
+              Stroke:
+            </label>
+            <input
+              type="number"
+              value={form.stroke}
+              onChange={changeHandler}
+              name="stroke"
+              className={styles.input}
+            />
+            <p className={styles.danger}>{errors.stroke}</p>
+          </div>
         </div>
-        <div>
-          <label htmlFor="life" className={styles.label}>
-            Life:
-          </label>
-          <input
-            type="number"
-            value={form.life}
-            onChange={changeHandler}
-            name="life"
-            className={styles.input}
-          />
-          <p className={styles.danger}>{errors.life}</p>
+        <div className={styles.inputGroup}>
+          <div>
+            <label htmlFor="defending" className={styles.label}>
+              Defending:
+            </label>
+            <input
+              type="number"
+              value={form.defending}
+              onChange={changeHandler}
+              name="defending"
+              className={styles.input}
+            />
+            <p className={styles.danger}>{errors.defending}</p>
+          </div>
+          <div>
+            <label htmlFor="speed" className={styles.label}>
+              Speed:
+            </label>
+            <input
+              type="number"
+              value={form.speed}
+              onChange={changeHandler}
+              name="speed"
+              className={styles.input}
+            />
+            <p className={styles.danger}>{errors.speed}</p>
+          </div>
         </div>
-        <div>
-          <label htmlFor="stroke" className={styles.label}>
-            Stroke:
-          </label>
-          <input
-            type="number"
-            value={form.stroke}
-            onChange={changeHandler}
-            name="stroke"
-            className={styles.input}
-          />
-          <p className={styles.danger}>{errors.stroke}</p>
-        </div>
-        <div>
-          <label htmlFor="defending" className={styles.label}>
-            Defending:
-          </label>
-          <input
-            type="number"
-            value={form.defending}
-            onChange={changeHandler}
-            name="defending"
-            className={styles.input}
-          />
-          <p className={styles.danger}>{errors.defending}</p>
-        </div>
-        <div>
-          <label htmlFor="speed" className={styles.label}>
-            Speed:
-          </label>
-          <input
-            type="number"
-            value={form.speed}
-            onChange={changeHandler}
-            name="speed"
-            className={styles.input}
-          />
-          <p className={styles.danger}>{errors.speed}</p>
-        </div>
-        <div>
-          <label htmlFor="height" className={styles.label}>
-            Height:
-          </label>
-          <input
-            type="number"
-            step="0.01"
-            value={form.height}
-            onChange={changeHandler}
-            name="height"
-            className={styles.input}
-          />
-          <p className={styles.danger}>{errors.height}</p>
-        </div>
-        <div>
-          <label htmlFor="height" className={styles.label}>
-            Weight:
-          </label>
-          <input
-            type="number"
-            step="0.01"
-            value={form.weight}
-            onChange={changeHandler}
-            name="weight"
-            className={styles.input}
-          />
-          <p className={styles.danger}>{errors.height}</p>
+        <div className={styles.inputGroup}>
+          <div>
+            <label htmlFor="height" className={styles.label}>
+              Height:
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              value={form.height}
+              onChange={changeHandler}
+              name="height"
+              className={styles.input}
+            />
+            <p className={styles.danger}>{errors.height}</p>
+          </div>
+          <div>
+            <label htmlFor="height" className={styles.label}>
+              Weight:
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              value={form.weight}
+              onChange={changeHandler}
+              name="weight"
+              className={styles.input}
+            />
+            <p className={styles.danger}>{errors.height}</p>
+          </div>
         </div>
 
+        <label htmlFor="type" className={styles.label}>
+          Type:
+        </label>
         <div className={styles.divContentType}>
-          <label htmlFor="type" className={styles.label}>
-            Type:
-          </label>
           {pokemonTypes.map(option => (
             <div key={option.id} className={styles.divType}>
               <input

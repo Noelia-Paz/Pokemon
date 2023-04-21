@@ -11,7 +11,7 @@ const NavBar = () => {
         FORM
       </Link>
       <Link to="/" className={style.salir}>
-        SALIR
+        GO OUT
       </Link>
     </div>
   );

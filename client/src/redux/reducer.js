@@ -9,7 +9,8 @@ const initialState = {
   pokemons: [],
   types: [],
   pokemonId: {},
-  pokemonName: [],
+  pokemonName: {},
+  pokemonNotFound: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -21,7 +22,11 @@ const rootReducer = (state = initialState, action) => {
     case GET_POKEMON_BY_ID:
       return { ...state, pokemonId: action.payload };
     case GET_POKEMON_BY_NAME:
-      return { ...state, pokemonName: action.payload };
+      return {
+        ...state,
+        pokemonName: action.payload.pokemonName,
+        pokemonNotFound: action.payload.pokemonNotFound,
+      };
     default:
       return { ...state };
   }

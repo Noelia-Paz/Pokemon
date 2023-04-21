@@ -30,11 +30,30 @@ export const getPokemonById = id => {
 };
 
 export const getPokemonByName = name => {
+  console.log('name', !!name);
   return async function (dispatch) {
-    const apiData = await axios.get(
-      `http://localhost:3001/pokemon/name?name=${name}`
-    );
-    const pokemonName = apiData.data;
-    dispatch({ type: GET_POKEMON_BY_NAME, payload: pokemonName });
+    try {
+      const apiData = await axios.get(
+        `http://localhost:3001/pokemon/name?name=${name}`
+      );
+      const pokemonName = apiData.data[0];
+      dispatch({
+        type: GET_POKEMON_BY_NAME,
+        payload: { pokemonName, pokemonNotFound: false },
+      });
+    } catch (error) {
+      const pokemonName = {};
+      if (!!name) {
+        dispatch({
+          type: GET_POKEMON_BY_NAME,
+          payload: { pokemonName, pokemonNotFound: true },
+        });
+      } else {
+        dispatch({
+          type: GET_POKEMON_BY_NAME,
+          payload: { pokemonName, pokemonNotFound: false },
+        });
+      }
+    }
   };
 };

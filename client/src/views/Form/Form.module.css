@@ -1,68 +1,68 @@
-.bodyForm{
+
+
+ 
+
+  .inputGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+
+  .bodyForm {
+    background-color: #f2f2f2;
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 600px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  }*
+  
+  .h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: inherit;
-    border-radius: 45px;
-   background-size: cover;
+    gap: 10px;
   }
-
-  .form{
-    border: 43px solid beige;
-    width: 40%;
-    box-shadow: 0 12px 60px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    height: 100vh;
-    margin: 50px;
-    border-radius: 35px;
-    
+  
+  .label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 45%;
   }
-
-  .input{
-    width: 30%;
-    padding: 6px;
-    border: 1px solid black;
-    margin: 10px;
-  }
-
-  .danger {
-    font-size: 15px;
-    color: blue;
-    font-weight: 600;
-    
-  }
-
-  .boton{
-    background-color: dodgerblue;
+  
+  .input {
+    padding: 10px;
+    width: 85%;
+    font-size: 16px;
+    border-radius: 5px;
     border: none;
-    padding: 10px;
-    width: 35%;
-    border-radius: 10px;
-    color: white;
-    font-weight: 900;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  }
+  
+  .danger {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
   }
 
-  .h1{
-    color: white;
-    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
-    font-size: 25px;
-  }
 
-  .label{
-    font-weight: 700;
+  
+
+
+  .divContentType {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .divType {
+    width: 20%;
     
-  }
-
-  .divContentType{
-    margin-left: 160px;
-    border: 1px solid;
-    width: 50%;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
-
-
-  .divType{
-   
-    display: contents;
-    margin: 2px;
   }

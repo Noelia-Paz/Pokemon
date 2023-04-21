@@ -17,11 +17,11 @@ const Detail = () => {
   return (
     <div className={styles.divDetail}>
       <Link to={'/home'}>
-        <button className={styles.button}>Home</button>
+        <button className={styles.button}>BACK</button>
       </Link>
       {pokemon.name ? (
         <div className={styles.divDetailCar}>
-          <h2 className={styles.h2}>Name: {pokemon.name}</h2>
+          <h2 className={styles.h2}>Name: {pokemon.name.toUpperCase()}</h2>
           <img
             className={styles.image}
             src={pokemon.image}
