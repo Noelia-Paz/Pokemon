@@ -4,6 +4,10 @@ export const GET_POKEMONS = 'GET_POKEMONS';
 export const GET_TYPES = 'GET_TYPES';
 export const GET_POKEMON_BY_ID = 'GET_POKEMON_BY_ID';
 export const GET_POKEMON_BY_NAME = 'GET_POKEMON_BY_NAME';
+export const FILTER_TYPE = 'FILTER_TYPE';
+export const FILTER_ORIGIN = 'FILTER_ORIGIN';
+export const ORDER_NAME = 'ORDER_NAME';
+export const ORDER_STROKE = 'ORDER_STROKE';
 
 export const getPokemons = () => {
   return async function (dispatch) {
@@ -55,5 +59,33 @@ export const getPokemonByName = name => {
         });
       }
     }
+  };
+};
+
+export const filterType = type => {
+  return {
+    type: FILTER_TYPE,
+    payload: type,
+  };
+};
+
+export const filterOrigin = value => {
+  return {
+    type: FILTER_ORIGIN,
+    payload: value,
+  };
+};
+
+export const orderName = valueOrder => {
+  return {
+    type: ORDER_NAME,
+    payload: valueOrder,
+  };
+};
+
+export const orderStroke = valueOrderStroke => {
+  return {
+    type: ORDER_STROKE,
+    payload: valueOrderStroke,
   };
 };

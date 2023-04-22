@@ -20,6 +20,12 @@ const getAllPokemons = async () => {
       id: pokemon.id,
       name: pokemon.name,
       image: pokemon.image,
+      life: pokemon.life,
+      stroke: pokemon.stroke,
+      defending: pokemon.defending,
+      speed: pokemon.speed,
+      height: pokemon.height,
+      weight: pokemon.weight,
       type: pokemon.typePokemons.map(type => type.name),
     };
   });
@@ -35,6 +41,12 @@ const getAllPokemons = async () => {
       id: pokemon.id,
       name: pokemon.name,
       image: pokemon.sprites.front_default,
+      life: pokemon.stats[0].base_stat,
+      stroke: pokemon.stats[1].base_stat,
+      defending: pokemon.stats[2].base_stat,
+      speed: pokemon.stats[5].base_stat,
+      height: pokemon.height,
+      weight: pokemon.weight,
       type: pokemon.types.map(type => type.type.name),
     };
   });
