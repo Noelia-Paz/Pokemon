@@ -1,23 +1,17 @@
 
-
- 
-
-  .inputGroup {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-  }
+  
   
 
-  .bodyForm {
-    background-color: #f2f2f2;
-    margin: 50px auto;
-    padding: 20px;
-    max-width: 600px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
-  }*
+  .divBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: inherit;
+    height: 100vh;
+    background: url('../../img/fondo.png') no-repeat ;
+    background-size: cover;
+    background-position: center;
+  }
   
   .h1 {
     text-align: center;
@@ -28,6 +22,21 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-left: 650px;
+    background-color: #cce6f4;
+    padding: 20px;
+    max-width: 600px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  }
+
+
+  .inputGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    
   }
   
   .label {
@@ -54,9 +63,6 @@
   }
 
 
-  
-
-
   .divContentType {
     display: flex;
     flex-wrap: wrap;
@@ -65,4 +71,13 @@
   .divType {
     width: 20%;
     
+  }
+
+  .boton{
+    margin-top: 10px;
+    background-color: blue;
+    color:  white;
+    font-size: medium;
+    border: none;
+    border-radius:10px;
   }

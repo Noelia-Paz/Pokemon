@@ -64,7 +64,7 @@ const Form = () => {
   };
 
   return (
-    <div className={styles.bodyForm}>
+    <div className={styles.divBody}>
       <h1 className={styles.h1}>Create a new Pokemon!</h1>
       <form onSubmit={submitHandler} className={styles.form}>
         <div className={styles.inputGroup}>

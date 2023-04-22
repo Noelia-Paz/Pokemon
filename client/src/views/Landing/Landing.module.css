@@ -1,14 +1,15 @@
 .divBody{
     background: url('../../img/pokemonLanding.jpg') no-repeat ;
-    height: 100vh;
-    width: inherit;
     background-size: cover;
     background-position: center;
+    height: 100vh;
+    width: inherit;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 
 h1{
     color: black;
