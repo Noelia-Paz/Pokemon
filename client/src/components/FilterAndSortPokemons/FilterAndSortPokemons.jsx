@@ -1,51 +1,48 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './FilterAndSortPokemons.module.css';
-import {
-  filterType,
-  filterOrigin,
-  orderName,
-  orderStroke,
-} from '../../redux/actions';
-import { useSelector, useDispatch } from 'react-redux';
-import Card from '../Card/Card';
+import { filterType, filterOrigin, orderPokemons } from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const FilterAndSortPokemons = () => {
-  const pokemons = useSelector(state => state.pokemons);
   const dispatch = useDispatch();
+  const [originName, setOriginName] = useState('');
+
+  const filterTypes = useSelector(state => state.filterType);
+  const sortPokemons = useSelector(state => state.sortPokemons);
 
   useEffect(() => {
-    dispatch(filterType('Normal'));
-    dispatch(filterOrigin('api'));
-    dispatch(orderName('name-asc'));
-    dispatch(orderStroke('attack-asc'));
+    dispatch(filterType());
+    dispatch(filterOrigin());
+    dispatch(orderPokemons());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(filterOrigin(originName));
+  }, [filterTypes, sortPokemons]);
 
   const onChangeFilterType = event => {
     dispatch(filterType(event.target.value));
   };
 
   const onChangeFilterOrigin = event => {
-    console.log(event.target.value);
+    setOriginName(event.target.value);
     dispatch(filterOrigin(event.target.value));
   };
 
-  const onChangeOrderName = event => {
-    dispatch(orderName(event.target.value));
-  };
-
-  const onChangeOrderStroke = event => {
-    dispatch(orderStroke(event.target.value));
+  const onChangeOrder = event => {
+    dispatch(orderPokemons(event.target.value));
   };
 
   return (
     <div className={style.body}>
       <div>
-        <label htmlFor="filter">Filter by: </label>
+        <label htmlFor="filter">Filter by Type: </label>
         <select
           name="name"
           className={style.select}
           onChange={onChangeFilterType}
         >
+          <option value="all">All</option>
           <option value="normal">Normal</option>
           <option value="fighting">Fighting</option>
           <option value="flyings">Flyings</option>
@@ -70,50 +67,27 @@ const FilterAndSortPokemons = () => {
         </select>
       </div>
       <div>
-        <label htmlFor="filter">Filter by: </label>
+        <label htmlFor="filter">Filter by Origin: </label>
         <select
           name="name"
           className={style.select}
           onChange={onChangeFilterOrigin}
         >
+          <option value="both">External api and Database</option>
           <option value="api">External api</option>
           <option value="database">Database</option>
         </select>
       </div>
 
       <div>
-        <label htmlFor="sort">Sort by: </label>
-        <select
-          name="name"
-          className={style.select}
-          onChange={onChangeOrderName}
-        >
+        <label htmlFor="sort">Sort: </label>
+        <select name="name" className={style.select} onChange={onChangeOrder}>
+          <option value={null}>Null </option>
           <option value="name-asc">Name (A-Z)</option>
           <option value="name-desc">Name (Z-A)</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="sort">Sort by: </label>
-        <select
-          name="name"
-          className={style.select}
-          onChange={onChangeOrderStroke}
-        >
           <option value="attack-asc">Attack (minor to major) </option>
           <option value="attack-desc">Attack (major to minor) </option>
         </select>
-      </div>
-
-      <div>
-        {pokemons?.slice(0, 12).map(pokemon => (
-          <Card
-            key={pokemon.id}
-            id={pokemon.id}
-            image={pokemon.image}
-            name={pokemon.name}
-            type={pokemon.type}
-          />
-        ))}
       </div>
     </div>
   );

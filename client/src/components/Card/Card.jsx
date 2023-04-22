@@ -7,7 +7,7 @@ const Card = props => {
     <div className={style.bodyCard}>
       <img className={`${style.image} image-size`} src={props.image} alt="" />
       <Link to={`/pokemon/${props.id}`}>
-        <h1 className={style.name}> Name: {props.name.toUpperCase()}</h1>
+        <h1 className={style.name}> Name: {props.name}</h1>
       </Link>
       <h2 className={style.info}>Types: {props.type?.join(', ')}</h2>
     </div>

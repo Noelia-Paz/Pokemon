@@ -6,8 +6,7 @@ export const GET_POKEMON_BY_ID = 'GET_POKEMON_BY_ID';
 export const GET_POKEMON_BY_NAME = 'GET_POKEMON_BY_NAME';
 export const FILTER_TYPE = 'FILTER_TYPE';
 export const FILTER_ORIGIN = 'FILTER_ORIGIN';
-export const ORDER_NAME = 'ORDER_NAME';
-export const ORDER_STROKE = 'ORDER_STROKE';
+export const ORDER_POKEMONS = 'ORDER_POKEMONS';
 
 export const getPokemons = () => {
   return async function (dispatch) {
@@ -76,16 +75,9 @@ export const filterOrigin = value => {
   };
 };
 
-export const orderName = valueOrder => {
+export const orderPokemons = valueOrder => {
   return {
-    type: ORDER_NAME,
+    type: ORDER_POKEMONS,
     payload: valueOrder,
-  };
-};
-
-export const orderStroke = valueOrderStroke => {
-  return {
-    type: ORDER_STROKE,
-    payload: valueOrderStroke,
   };
 };

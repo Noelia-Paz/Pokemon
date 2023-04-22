@@ -5,9 +5,9 @@ import { useState } from 'react';
 import style from './CardsContainer.module.css';
 
 const CardContainer = () => {
-  const pokemons = useSelector(state => state.pokemons);
   const pokemonName = useSelector(state => state.pokemonName);
   const pokemonNotFound = useSelector(state => state.pokemonNotFound);
+  const filterOrigin = useSelector(state => state.filterOrigin);
 
   const [filteredPokemon, setFilteredPokemon] = useState({});
 
@@ -25,7 +25,7 @@ const CardContainer = () => {
             </>
           ) : (
             <>
-              {pokemons.slice(0, 12).map(pokemon => (
+              {filterOrigin.slice(0, 12).map(pokemon => (
                 <Card
                   key={pokemon.id}
                   id={pokemon.id}

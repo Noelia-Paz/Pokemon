@@ -5,8 +5,7 @@ import {
   GET_POKEMON_BY_NAME,
   FILTER_TYPE,
   FILTER_ORIGIN,
-  ORDER_NAME,
-  ORDER_STROKE,
+  ORDER_POKEMONS,
 } from './actions';
 
 const initialState = {
@@ -17,14 +16,18 @@ const initialState = {
   pokemonNotFound: false,
   filterType: [],
   filterOrigin: [],
-  orderName: [],
-  orderStroke: [],
+  sortPokemons: null,
+  isPokemonDatabase: false,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_POKEMONS:
-      return { ...state, pokemons: action.payload };
+      return {
+        ...state,
+        pokemons: action.payload,
+        filterOrigin: action.payload,
+      };
 
     case GET_TYPES:
       return { ...state, types: action.payload };
@@ -40,45 +43,61 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_TYPE:
-      let normalPokemons = state.pokemons.filter(pokemon =>
-        pokemon.type.includes(action.payload)
-      );
-
       return {
         ...state,
-        filterType: [...normalPokemons],
+        filterType:
+          action.payload === undefined || action.payload === 'all'
+            ? []
+            : [action.payload],
       };
+
+    case ORDER_POKEMONS:
+      return { ...state, sortPokemons: action.payload };
 
     case FILTER_ORIGIN:
       let myFilter = state.pokemons.slice();
       if (action.payload === 'api') {
-        myFilter = state.pokemons.filter(
-          pokemon => typeof pokemon.id === 'number'
-        );
+        myFilter = state.pokemons.filter(pokemon => {
+          if (!!state.filterType.length) {
+            return (
+              typeof pokemon.id === 'number' &&
+              pokemon.type.includes(state.filterType[0])
+            );
+          } else {
+            return typeof pokemon.id === 'number';
+          }
+        });
+      } else if (action.payload === 'database') {
+        myFilter = state.pokemons.filter(pokemon => {
+          if (!!state.filterType.length) {
+            return (
+              typeof pokemon.id === 'string' &&
+              pokemon.type.includes(state.filterType[0])
+            );
+          } else {
+            return typeof pokemon.id === 'string';
+          }
+        });
       } else {
-        myFilter = state.pokemons.filter(
-          pokemon => typeof pokemon.id === 'string'
-        );
+        myFilter = !!state.filterType.length
+          ? state.pokemons.filter(pokemon =>
+              pokemon.type.includes(state.filterType[0])
+            )
+          : state.pokemons;
       }
+
+      if (state.sortPokemons === 'name-asc') {
+        console.log('entra');
+        myFilter.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (state.sortPokemons === 'name-desc') {
+        myFilter.sort((a, b) => b.name.localeCompare(a.name));
+      } else if (state.sortPokemons === 'attack-asc') {
+        myFilter.sort((a, b) => a.stroke - b.stroke);
+      } else if (state.sortPokemons === 'attack-desc') {
+        myFilter.sort((a, b) => b.stroke - a.stroke);
+      }
+
       return { ...state, filterOrigin: [...myFilter] };
-
-    case ORDER_NAME:
-      let myOrder = state.pokemons.slice();
-      if (action.payload === 'name-asc') {
-        myOrder.sort((a, b) => a.name.localeCompare(b.name));
-      } else {
-        myOrder.sort((a, b) => b.name.localeCompare(a.name));
-      }
-      return { ...state, orderName: [...myOrder] };
-
-    case ORDER_STROKE:
-      let myOrderStroke = state.pokemons.slice();
-      if (action.payload === 'attack-asc') {
-        myOrderStroke.sort((a, b) => a.stroke - b.stroke);
-      } else {
-        myOrderStroke.sort((a, b) => b.stroke - a.stroke);
-      }
-      return { ...state, orderStroke: [...myOrderStroke] };
 
     default:
       return { ...state };
