@@ -12,14 +12,14 @@ const Detail = () => {
 
   useEffect(() => {
     dispatch(getPokemonById(id));
-  }, [dispatch, id]);
+  }, [id]);
 
   return (
     <div className={styles.divDetail}>
       <Link to={'/home'}>
         <button className={styles.button}>BACK</button>
       </Link>
-      {pokemon.name ? (
+      {pokemon?.name ? (
         <div className={styles.divDetailCar}>
           <h2 className={styles.h2}>Name: {pokemon.name.toUpperCase()}</h2>
           <img

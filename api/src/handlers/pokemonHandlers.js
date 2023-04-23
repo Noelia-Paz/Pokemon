@@ -26,11 +26,11 @@ const getPokemonIdHandler = async (req, res) => {
 };
 
 const getPokemonNameHandler = async (req, res) => {
-  const name = req.query.name.toLowerCase();
+  const pokemonName = req.query.name.toLowerCase();
 
   try {
-    const pokemonName = await getPokemonName(name);
-    res.status(200).json(pokemonName);
+    const pokemon = await getPokemonName(pokemonName);
+    res.status(200).json(pokemon);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

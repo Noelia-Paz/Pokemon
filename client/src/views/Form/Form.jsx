@@ -6,6 +6,7 @@ import validation from './validation';
 import styles from './Form.module.css';
 import { useDispatch } from 'react-redux';
 import { getTypes } from '../../redux/actions';
+import { Link } from 'react-router-dom';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -211,6 +212,9 @@ const Form = () => {
         <button className={styles.boton} type="submit">
           Create Pokemon
         </button>
+        <Link to={'/home'}>
+          <button className={styles.buttonBack}>Back</button>
+        </Link>
       </form>
     </div>
   );

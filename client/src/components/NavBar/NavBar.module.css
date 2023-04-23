@@ -2,13 +2,14 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 99%;
     background-color: #333;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     height: 60px;
-    padding-left: 85px;
+    padding: 10px;
+   
   }
   
   .link {
@@ -27,4 +28,9 @@
     text-decoration: none;
     cursor: pointer;
     font-weight: bold;
+  }
+
+
+  .title{
+    font-size: 20px;
   }

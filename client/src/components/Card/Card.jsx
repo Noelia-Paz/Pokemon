@@ -3,13 +3,22 @@ import style from './Card.module.css';
 import { Link } from 'react-router-dom';
 
 const Card = props => {
+  const elementsH1 = props.type.map((type, index) => {
+    return (
+      <h1 key={index} className={style.h1Type}>
+        {type.toLocaleUpperCase()}
+      </h1>
+    );
+  });
+  console.log(elementsH1);
+
   return (
     <div className={style.bodyCard}>
       <img className={`${style.image} image-size`} src={props.image} alt="" />
       <Link to={`/pokemon/${props.id}`}>
-        <h1 className={style.name}> Name: {props.name}</h1>
+        <h1 className={style.name}> {props.name.toLocaleUpperCase()}</h1>
       </Link>
-      <h2 className={style.info}>Types: {props.type?.join(', ')}</h2>
+      <div className={style.divType}>{elementsH1}</div>
     </div>
   );
 };

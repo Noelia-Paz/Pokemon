@@ -28,4 +28,17 @@
   width: 250px;
   height: 250px;
 }
+
+
+.divType{
+  display: flex;
+  flex-direction: row;
+}
+.h1Type{
+  font-size: 16px;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: grey;
+  text-shadow: 2px 2px 4px burlywood;
+}
   

@@ -42,7 +42,7 @@ const getAllPokemons = async () => {
     return {
       id: pokemon.id,
       name: pokemon.name,
-      image: pokemon.sprites.front_default,
+      image: pokemon.sprites.other['official-artwork'].front_default,
       life: pokemon.stats[0].base_stat,
       stroke: pokemon.stats[1].base_stat,
       defending: pokemon.stats[2].base_stat,
@@ -104,12 +104,21 @@ const getPokemonId = async (idPokemon, source) => {
   }
 };
 
-const getPokemonName = async name => {
-  const databasePokemonName = await Pokemon.findAll({ where: { name } });
+const getPokemonName = async pokemonName => {
+  const databasePokemonName = await Pokemon.findOne({
+    where: { name: pokemonName },
+    include: {
+      model: TypePokemon,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      },
+    },
+  });
 
-  if (databasePokemonName.length === 0) {
+  if (databasePokemonName === null) {
     const apiPokemonsName = (
-      await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
     ).data;
 
     const pokemonApi = {
@@ -122,11 +131,38 @@ const getPokemonName = async name => {
       speed: apiPokemonsName.stats[5].base_stat,
       height: apiPokemonsName.height,
       weight: apiPokemonsName.weight,
+      type: apiPokemonsName.types.map(type => type.type.name),
     };
 
-    return [pokemonApi];
+    return pokemonApi;
+  } else {
+    const {
+      id,
+      name,
+      image,
+      life,
+      stroke,
+      defending,
+      speed,
+      height,
+      weight,
+      typePokemons,
+    } = databasePokemonName;
+
+    const pokemonDatabase = {
+      id,
+      name,
+      image,
+      life,
+      stroke,
+      defending,
+      speed,
+      height,
+      weight,
+      type: typePokemons.map(type => type.name),
+    };
+    return pokemonDatabase;
   }
-  return databasePokemonName;
 };
 
 const createPokemon = async (

@@ -7,11 +7,17 @@ const ITEMS_PER_PAGE = 12;
 
 const CardContainer = () => {
   const pokemonName = useSelector(state => state.pokemonName);
+
   const pokemonNotFound = useSelector(state => state.pokemonNotFound);
   const filterOrigin = useSelector(state => state.filterOrigin);
 
+  const [filteredPokemonName, setFilteredPokemonName] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [numPages, setNumPages] = useState(1);
+
+  useEffect(() => {
+    setFilteredPokemonName(pokemonName);
+  }, [pokemonName]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -37,7 +43,11 @@ const CardContainer = () => {
   const pageButtons = [];
   for (let i = 1; i <= numPages; i++) {
     pageButtons.push(
-      <button key={i} onClick={() => handlePageChange(i)}>
+      <button
+        className={style.buttonPag}
+        key={i}
+        onClick={() => handlePageChange(i)}
+      >
         {i}
       </button>
     );
@@ -45,23 +55,54 @@ const CardContainer = () => {
 
   return (
     <div className={style.divBody}>
-      {pokemonNotFound ? (
-        <h1>Pokemon no encontrado</h1>
+      {Object.keys(filteredPokemonName).length === 0 ? (
+        <>
+          {pokemonNotFound ? (
+            <>
+              <h1>Pokemon Not Found</h1>
+            </>
+          ) : (
+            <>
+              <div className={style.divCars}>
+                {filteredPokemon.map(pokemon => (
+                  <Card
+                    key={pokemon.id}
+                    id={pokemon.id}
+                    image={pokemon.image}
+                    name={pokemon.name}
+                    stroke={pokemon.stroke}
+                    type={pokemon.type}
+                  />
+                ))}
+              </div>
+              <div className={style.divButton}>
+                <button
+                  className={style.buttonPag}
+                  onClick={handleFirstPageClick}
+                >
+                  First page
+                </button>
+                {pageButtons}
+                <button
+                  className={style.buttonPag}
+                  onClick={handleLastPageClick}
+                >
+                  Last page
+                </button>
+              </div>
+            </>
+          )}
+        </>
       ) : (
         <>
-          {filteredPokemon.map(pokemon => (
+          <div className={style.cardName}>
             <Card
-              key={pokemon.id}
-              id={pokemon.id}
-              image={pokemon.image}
-              name={pokemon.name}
-              type={pokemon.type}
+              key={filteredPokemonName.id}
+              name={filteredPokemonName.name}
+              image={filteredPokemonName.image}
+              type={filteredPokemonName.type}
+              stroke={filteredPokemonName.stroke}
             />
-          ))}
-          <div>
-            <button onClick={handleFirstPageClick}>Primera página</button>
-            {pageButtons}
-            <button onClick={handleLastPageClick}>Última página</button>
           </div>
         </>
       )}
