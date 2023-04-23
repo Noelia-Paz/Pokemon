@@ -30,7 +30,9 @@ const getAllPokemons = async () => {
     };
   });
 
-  const apiPokemons = await axios.get(`https://pokeapi.co/api/v2/pokemon`);
+  const apiPokemons = await axios.get(
+    `https://pokeapi.co/api/v2/pokemon?offset=20&limit=60"`
+  );
   const results = apiPokemons.data.results;
   const promises = results.map(result => axios.get(result.url));
   const pokemonResponses = await Promise.all(promises);

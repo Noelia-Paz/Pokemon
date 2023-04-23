@@ -35,8 +35,8 @@ const FilterAndSortPokemons = () => {
 
   return (
     <div className={style.body}>
-      <div>
-        <label htmlFor="filter">Filter by Type: </label>
+      <div className={style.div}>
+        <label htmlFor="filter">Filter by Type </label>
         <select
           name="name"
           className={style.select}
@@ -66,21 +66,21 @@ const FilterAndSortPokemons = () => {
           <option value="shadow">Shadow</option>
         </select>
       </div>
-      <div>
-        <label htmlFor="filter">Filter by Origin: </label>
+      <div className={style.div}>
+        <label htmlFor="filter">Filter by Origin </label>
         <select
           name="name"
           className={style.select}
           onChange={onChangeFilterOrigin}
         >
-          <option value="both">External api and Database</option>
-          <option value="api">External api</option>
+          <option value="both">External Api and Database</option>
+          <option value="api">External Api</option>
           <option value="database">Database</option>
         </select>
       </div>
 
-      <div>
-        <label htmlFor="sort">Sort: </label>
+      <div className={style.div}>
+        <label htmlFor="sort">Sort </label>
         <select name="name" className={style.select} onChange={onChangeOrder}>
           <option value={null}>Null </option>
           <option value="name-asc">Name (A-Z)</option>

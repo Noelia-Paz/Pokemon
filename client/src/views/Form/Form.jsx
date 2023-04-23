@@ -1,11 +1,14 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import validation from './validation';
 import styles from './Form.module.css';
+import { useDispatch } from 'react-redux';
+import { getTypes } from '../../redux/actions';
 
 const Form = () => {
+  const dispatch = useDispatch();
   const pokemonTypes = useSelector(state => state.types);
   const [form, setForm] = useState({
     name: '',
@@ -30,6 +33,10 @@ const Form = () => {
     weight: '',
     type: [],
   });
+
+  useEffect(() => {
+    dispatch(getTypes());
+  }, []);
 
   const changeHandler = event => {
     const property = event.target.name;

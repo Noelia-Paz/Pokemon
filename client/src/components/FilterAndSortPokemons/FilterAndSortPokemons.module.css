@@ -2,17 +2,24 @@
 .body{
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 .select {
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-    margin-right: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  width: 100%;
   }
   
   label {
     margin-right: 0.5rem;
     font-weight: bold;
+  }
+
+  .div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 10px;
+    color: floralwhite;
   }

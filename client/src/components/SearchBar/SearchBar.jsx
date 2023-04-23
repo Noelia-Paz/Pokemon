@@ -14,6 +14,7 @@ const SearchBar = () => {
   return (
     <div className={styles.bodySearch}>
       <input
+        placeholder="Write a Name"
         className={styles.input}
         type="search"
         onChange={event => setPokemonName(event.target.value)}
