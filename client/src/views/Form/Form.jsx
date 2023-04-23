@@ -7,10 +7,13 @@ import styles from './Form.module.css';
 import { useDispatch } from 'react-redux';
 import { getTypes } from '../../redux/actions';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Form = () => {
   const dispatch = useDispatch();
   const pokemonTypes = useSelector(state => state.types);
+  const history = useHistory();
+
   const [form, setForm] = useState({
     name: '',
     image: '',
@@ -64,13 +67,30 @@ const Form = () => {
 
   const submitHandler = event => {
     event.preventDefault();
-    axios
-      .post('http://localhost:3001/pokemon', form)
-      .then(res => alert(res))
-      .catch(err => alert(err));
-    alert('Se ha creado con exito!');
+    if (
+      form.name !== '' &&
+      form.image !== '' &&
+      form.life !== '' &&
+      form.stroke !== '' &&
+      form.defending !== '' &&
+      form.speed !== '' &&
+      form.height !== '' &&
+      form.weight !== '' &&
+      form.type.length > 0
+    ) {
+      axios
+        .post('http://localhost:3001/pokemon', form)
+        .then(res => {
+          alert('Se ha creado con éxito!');
+          history.push('/home');
+        })
+        .catch(err => {
+          alert(err.message);
+        });
+    } else {
+      alert('Por favor, complete todos los campos requeridos');
+    }
   };
-
   return (
     <div className={styles.divBody}>
       <h1 className={styles.h1}>Create a new Pokemon!</h1>

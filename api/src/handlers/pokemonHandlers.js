@@ -39,6 +39,20 @@ const getPokemonNameHandler = async (req, res) => {
 const createPokemonHandler = async (req, res) => {
   const { name, life, stroke, defending, speed, height, weight, image, type } =
     req.body;
+
+  if (
+    !name ||
+    !life ||
+    !stroke ||
+    !defending ||
+    !speed ||
+    !height ||
+    !weight ||
+    !image ||
+    !type
+  ) {
+    return res.status(400).send('Faltan datos');
+  }
   try {
     const newPokemon = await createPokemon(
       name,
