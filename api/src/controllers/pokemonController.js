@@ -3,6 +3,36 @@ const { API_POKE_URL } = process.env;
 
 const { Pokemon, TypePokemon } = require('../db');
 
+const createPokemonPropertiesDatabase = pokemon => {
+  return {
+    id: pokemon.id,
+    name: pokemon.name,
+    image: pokemon.image,
+    life: pokemon.life,
+    stroke: pokemon.stroke,
+    defending: pokemon.defending,
+    speed: pokemon.speed,
+    height: pokemon.height,
+    weight: pokemon.weight,
+    type: pokemon.typePokemons.map(type => type.name),
+  };
+};
+
+const createPokemonPropertiesApiPoke = pokemon => {
+  return {
+    id: pokemon.id,
+    name: pokemon.name,
+    image: pokemon.sprites.other['official-artwork'].front_default,
+    life: pokemon.stats[0].base_stat,
+    stroke: pokemon.stats[1].base_stat,
+    defending: pokemon.stats[2].base_stat,
+    speed: pokemon.stats[5].base_stat,
+    height: pokemon.height,
+    weight: pokemon.weight,
+    type: pokemon.types.map(type => type.type.name),
+  };
+};
+
 const getAllPokemons = async () => {
   const databasePokemons = await Pokemon.findAll({
     include: [
@@ -17,39 +47,15 @@ const getAllPokemons = async () => {
   });
 
   const pokemonDataDb = databasePokemons.map(pokemon => {
-    return {
-      id: pokemon.id,
-      name: pokemon.name,
-      image: pokemon.image,
-      life: pokemon.life,
-      stroke: pokemon.stroke,
-      defending: pokemon.defending,
-      speed: pokemon.speed,
-      height: pokemon.height,
-      weight: pokemon.weight,
-      type: pokemon.typePokemons.map(type => type.name),
-    };
+    return createPokemonPropertiesDatabase(pokemon);
   });
-
   const apiPokemons = await axios.get(`${API_POKE_URL}?offset=20&limit=60"`);
   const results = apiPokemons.data.results;
   const promises = results.map(result => axios.get(result.url));
   const pokemonResponses = await Promise.all(promises);
   const pokemons = pokemonResponses.map(response => response.data);
-
   const pokemonsDataApi = pokemons.map(pokemon => {
-    return {
-      id: pokemon.id,
-      name: pokemon.name,
-      image: pokemon.sprites.other['official-artwork'].front_default,
-      life: pokemon.stats[0].base_stat,
-      stroke: pokemon.stats[1].base_stat,
-      defending: pokemon.stats[2].base_stat,
-      speed: pokemon.stats[5].base_stat,
-      height: pokemon.height,
-      weight: pokemon.weight,
-      type: pokemon.types.map(type => type.type.name),
-    };
+    return createPokemonPropertiesApiPoke(pokemon);
   });
 
   return [...pokemonDataDb, ...pokemonsDataApi];
@@ -61,20 +67,9 @@ const getPokemonId = async (idPokemon, source) => {
   if (source === 'api') {
     const response = await axios.get(`${API_POKE_URL}/${idPokemon}`);
     pokemon = response.data;
-    const pokemonApi = {
-      id: pokemon.id,
-      name: pokemon.name,
-      image: pokemon.sprites.other.dream_world.front_default,
-      life: pokemon.stats[0].base_stat,
-      stroke: pokemon.stats[1].base_stat,
-      defending: pokemon.stats[2].base_stat,
-      speed: pokemon.stats[5].base_stat,
-      height: pokemon.height,
-      weight: pokemon.weight,
-      type: pokemon.types.map(type => type.type.name),
-    };
+    const pokemonApi = createPokemonPropertiesApiPoke(pokemon);
     return pokemonApi;
-  } else {
+  } else if (source === 'bdd') {
     pokemon = await Pokemon.findByPk(idPokemon, {
       include: {
         model: TypePokemon,
@@ -84,19 +79,7 @@ const getPokemonId = async (idPokemon, source) => {
         },
       },
     });
-    if (!pokemon) throw Error('El id no existe');
-    const pokemonDatabase = {
-      id: pokemon.id,
-      name: pokemon.name,
-      image: pokemon.image,
-      life: pokemon.life,
-      stroke: pokemon.stroke,
-      defending: pokemon.defending,
-      speed: pokemon.speed,
-      height: pokemon.height,
-      weight: pokemon.weight,
-      type: pokemon.typePokemons.map(type => type.name),
-    };
+    const pokemonDatabase = createPokemonPropertiesDatabase(pokemon);
     return pokemonDatabase;
   }
 };
@@ -114,22 +97,8 @@ const getPokemonName = async pokemonName => {
   });
 
   if (databasePokemonName === null) {
-    const apiPokemonsName = (await axios.get(`${API_POKE_URL}/${pokemonName}`))
-      .data;
-
-    const pokemonApi = {
-      id: apiPokemonsName.id,
-      name: apiPokemonsName.name,
-      image: apiPokemonsName.sprites.other.dream_world.front_default,
-      life: apiPokemonsName.stats[0].base_stat,
-      stroke: apiPokemonsName.stats[1].base_stat,
-      defending: apiPokemonsName.stats[2].base_stat,
-      speed: apiPokemonsName.stats[5].base_stat,
-      height: apiPokemonsName.height,
-      weight: apiPokemonsName.weight,
-      type: apiPokemonsName.types.map(type => type.type.name),
-    };
-
+    const pokemon = (await axios.get(`${API_POKE_URL}/${pokemonName}`)).data;
+    const pokemonApi = createPokemonPropertiesApiPoke(pokemon);
     return pokemonApi;
   } else {
     const {

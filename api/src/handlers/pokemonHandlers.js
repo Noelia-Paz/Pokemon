@@ -21,7 +21,7 @@ const getPokemonIdHandler = async (req, res) => {
     const pokemon = await getPokemonId(idPokemon, source);
     res.status(200).json(pokemon);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(404).json({ message: 'The id does not exist' });
   }
 };
 
@@ -32,7 +32,7 @@ const getPokemonNameHandler = async (req, res) => {
     const pokemon = await getPokemonName(pokemonName);
     res.status(200).json(pokemon);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(404).json({ message: 'The Name does not exist' });
   }
 };
 
@@ -51,7 +51,7 @@ const createPokemonHandler = async (req, res) => {
     !image ||
     !type
   ) {
-    return res.status(400).send('Faltan datos');
+    return res.status(400).send('All fields must be complete');
   }
   try {
     const newPokemon = await createPokemon(

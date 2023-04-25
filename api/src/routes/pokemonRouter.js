@@ -6,10 +6,11 @@ const {
   getPokemonNameHandler,
   createPokemonHandler,
 } = require('../handlers/pokemonHandlers');
+const { validatePokemonName } = require('../util/validations/validationStatus');
 
 const pokemonRouter = Router();
 
-pokemonRouter.get('/name', getPokemonNameHandler);
+pokemonRouter.get('/name', validatePokemonName, getPokemonNameHandler);
 
 pokemonRouter.get('/:idPokemon', getPokemonIdHandler);
 
