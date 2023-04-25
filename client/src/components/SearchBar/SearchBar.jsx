@@ -7,8 +7,11 @@ const SearchBar = () => {
   const dispatch = useDispatch();
 
   const [pokemonName, setPokemonName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSearch = () => {
-    dispatch(getPokemonByName(pokemonName));
+    setIsLoading(true);
+    dispatch(getPokemonByName(pokemonName)).finally(() => setIsLoading(false));
   };
 
   return (
@@ -19,9 +22,13 @@ const SearchBar = () => {
         type="search"
         onChange={event => setPokemonName(event.target.value)}
       />
-      <button className={styles.button} onClick={handleSearch}>
-        Search Pokemon
-      </button>
+      {isLoading ? (
+        <p className={styles.isLoading}>Searching...</p>
+      ) : (
+        <button className={styles.button} onClick={handleSearch}>
+          Search Pokemon
+        </button>
+      )}
     </div>
   );
 };

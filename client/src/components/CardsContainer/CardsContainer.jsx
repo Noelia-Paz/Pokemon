@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Card from '../Card/Card';
 import style from './CardsContainer.module.css';
+import { useDispatch } from 'react-redux';
+import { getPokemonByName } from '../../redux/actions';
 
 const ITEMS_PER_PAGE = 12;
 
 const CardContainer = () => {
+  const dispatch = useDispatch();
   const pokemonName = useSelector(state => state.pokemonName);
-
   const pokemonNotFound = useSelector(state => state.pokemonNotFound);
   const filterOrigin = useSelector(state => state.filterOrigin);
 
@@ -17,7 +19,14 @@ const CardContainer = () => {
 
   useEffect(() => {
     setFilteredPokemonName(pokemonName);
-  }, [pokemonName]);
+  }, [dispatch, pokemonName]);
+
+  useEffect(() => {
+    if (pokemonNotFound) {
+      alert('Pokemon Not Found');
+    }
+    dispatch(getPokemonByName(''));
+  }, [dispatch, pokemonNotFound]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -34,6 +43,10 @@ const CardContainer = () => {
 
   const handleLastPageClick = () => {
     setCurrentPage(numPages);
+  };
+
+  const handleCleanPokemon = () => {
+    setFilteredPokemonName({});
   };
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -57,7 +70,7 @@ const CardContainer = () => {
     <div className={style.divBody}>
       {Object.keys(filteredPokemonName).length === 0 ? (
         <>
-          {pokemonNotFound ? (
+          {filteredPokemon.length === 0 ? (
             <>
               <h1>Pokemon Not Found</h1>
             </>
@@ -103,6 +116,14 @@ const CardContainer = () => {
               type={filteredPokemonName.type}
               stroke={filteredPokemonName.stroke}
             />
+            <div className={style.divButtonCarName}>
+              <button
+                className={style.buttonCardName}
+                onClick={handleCleanPokemon}
+              >
+                Back
+              </button>
+            </div>
           </div>
         </>
       )}

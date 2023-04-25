@@ -10,7 +10,6 @@ const Card = props => {
       </h1>
     );
   });
-  console.log(elementsH1);
 
   return (
     <div className={style.bodyCard}>

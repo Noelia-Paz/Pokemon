@@ -81,14 +81,20 @@ const Form = () => {
       axios
         .post('http://localhost:3001/pokemon', form)
         .then(res => {
-          alert('Se ha creado con éxito!');
+          alert('It has been successfully created!');
           history.push('/home');
         })
         .catch(err => {
-          alert(err.message);
+          if (err.message === 'Request failed with status code 400') {
+            alert(
+              'Error: The entered name already exists. Please choose another name.'
+            );
+          } else {
+            alert(err.message);
+          }
         });
     } else {
-      alert('Por favor, complete todos los campos requeridos');
+      alert('Please complete all required fields');
     }
   };
   return (
@@ -133,6 +139,7 @@ const Form = () => {
               value={form.life}
               onChange={changeHandler}
               name="life"
+              min="0"
               className={styles.input}
             />
             <p className={styles.danger}>{errors.life}</p>
@@ -143,6 +150,7 @@ const Form = () => {
             </label>
             <input
               type="number"
+              min="0"
               value={form.stroke}
               onChange={changeHandler}
               name="stroke"
@@ -158,6 +166,7 @@ const Form = () => {
             </label>
             <input
               type="number"
+              min="0"
               value={form.defending}
               onChange={changeHandler}
               name="defending"
@@ -171,6 +180,7 @@ const Form = () => {
             </label>
             <input
               type="number"
+              min="0"
               value={form.speed}
               onChange={changeHandler}
               name="speed"
@@ -186,7 +196,7 @@ const Form = () => {
             </label>
             <input
               type="number"
-              step="0.01"
+              min="0"
               value={form.height}
               onChange={changeHandler}
               name="height"
@@ -200,7 +210,7 @@ const Form = () => {
             </label>
             <input
               type="number"
-              step="0.01"
+              min="0"
               value={form.weight}
               onChange={changeHandler}
               name="weight"

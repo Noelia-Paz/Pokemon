@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPokemonById } from '../../redux/actions';
+import { getPokemonById, cleanDetail } from '../../redux/actions';
 import { useParams } from 'react-router-dom';
 import styles from './Detail.module.css';
 import { Link } from 'react-router-dom';
@@ -12,21 +12,20 @@ const Detail = () => {
 
   useEffect(() => {
     dispatch(getPokemonById(id));
-  }, [id]);
+    return () => {
+      dispatch(cleanDetail());
+    };
+  }, [dispatch, id]);
 
   return (
     <div className={styles.divDetail}>
       <Link to={'/home'}>
         <button className={styles.button}>BACK</button>
       </Link>
-      {pokemon?.name ? (
+      {pokemon.name ? (
         <div className={styles.divDetailCar}>
           <h2 className={styles.h2}>Name: {pokemon.name.toUpperCase()}</h2>
-          <img
-            className={styles.image}
-            src={pokemon.image}
-            alt={pokemon.name}
-          />
+          <img className={styles.image} src={pokemon.image} alt="img" />
           <h2 className={styles.h2}>Type: {pokemon.type.join(', ')}</h2>
           <h2 className={styles.h2}>life: {pokemon.life}</h2>
           <h2 className={styles.h2}>Stroke: {pokemon.stroke}</h2>

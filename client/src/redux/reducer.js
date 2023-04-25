@@ -5,6 +5,7 @@ import {
   GET_POKEMON_BY_NAME,
   FILTER_TYPE,
   FILTER_ORIGIN,
+  CLEAN_DETAIL,
   ORDER_POKEMONS,
 } from './actions';
 
@@ -87,7 +88,6 @@ const rootReducer = (state = initialState, action) => {
       }
 
       if (state.sortPokemons === 'name-asc') {
-        console.log('entra');
         myFilter.sort((a, b) => a.name.localeCompare(b.name));
       } else if (state.sortPokemons === 'name-desc') {
         myFilter.sort((a, b) => b.name.localeCompare(a.name));
@@ -98,6 +98,12 @@ const rootReducer = (state = initialState, action) => {
       }
 
       return { ...state, filterOrigin: [...myFilter] };
+
+    case CLEAN_DETAIL:
+      return {
+        ...state,
+        pokemonId: {},
+      };
 
     default:
       return { ...state };

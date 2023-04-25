@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
 import style from './NavBar.module.css';
+import { getPokemonByName } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+
+  const handleCleanPokemon = () => {
+    dispatch(getPokemonByName(''));
+  };
   return (
     <div className={style.navBar}>
       <h1 className={style.title}>PokemonApi</h1>
@@ -14,7 +21,7 @@ const NavBar = () => {
         </Link>
       </div>
       <div className={style.linkExit}>
-        <Link to="/" className={style.salir}>
+        <Link to="/" className={style.salir} onClick={handleCleanPokemon}>
           EXIT
         </Link>
       </div>

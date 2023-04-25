@@ -24,3 +24,8 @@
     border: 3px solid lightblue;
     border-radius: 6px;
 }
+
+.isLoading{
+    color: white;
+    font-weight: 700;
+}
