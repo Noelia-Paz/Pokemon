@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { API_POKE_URL } = process.env;
 
 const { Pokemon, TypePokemon } = require('../db');
 
@@ -30,9 +31,7 @@ const getAllPokemons = async () => {
     };
   });
 
-  const apiPokemons = await axios.get(
-    `https://pokeapi.co/api/v2/pokemon?offset=20&limit=60"`
-  );
+  const apiPokemons = await axios.get(`${API_POKE_URL}?offset=20&limit=60"`);
   const results = apiPokemons.data.results;
   const promises = results.map(result => axios.get(result.url));
   const pokemonResponses = await Promise.all(promises);
@@ -60,9 +59,7 @@ const getPokemonId = async (idPokemon, source) => {
   let pokemon;
 
   if (source === 'api') {
-    const response = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${idPokemon}`
-    );
+    const response = await axios.get(`${API_POKE_URL}/${idPokemon}`);
     pokemon = response.data;
     const pokemonApi = {
       id: pokemon.id,
@@ -117,9 +114,8 @@ const getPokemonName = async pokemonName => {
   });
 
   if (databasePokemonName === null) {
-    const apiPokemonsName = (
-      await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-    ).data;
+    const apiPokemonsName = (await axios.get(`${API_POKE_URL}/${pokemonName}`))
+      .data;
 
     const pokemonApi = {
       id: apiPokemonsName.id,

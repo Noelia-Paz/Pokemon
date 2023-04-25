@@ -1,13 +1,12 @@
 const axios = require('axios');
-
+const { API_POKE_URL_TYPE } = process.env;
 const { TypePokemon } = require('../db');
 
 const getAllTypePokemons = async () => {
   const typeDatabase = await TypePokemon.findAll();
 
   if (typeDatabase.length === 0) {
-    const apiPokemons = (await axios.get(`https://pokeapi.co/api/v2/type`))
-      .data;
+    const apiPokemons = (await axios.get(`${API_POKE_URL_TYPE}`)).data;
 
     typeAPi = apiPokemons.results;
 
@@ -21,9 +20,4 @@ const getAllTypePokemons = async () => {
   return typeDatabase;
 };
 
-const createType = async (name, pokemonId) => {
-  const type = await TypePokemon.create({ name });
-  await type.setPokemon(pokemonId);
-};
-
-module.exports = { getAllTypePokemons, createType };
+module.exports = { getAllTypePokemons };
