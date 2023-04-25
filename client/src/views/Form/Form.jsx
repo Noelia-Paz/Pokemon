@@ -79,7 +79,7 @@ const Form = () => {
       form.type.length > 0
     ) {
       axios
-        .post('http://localhost:3001/pokemon', form)
+        .post(process.env.REACT_APP_URL_SERVER_PORT + '/pokemon', form)
         .then(res => {
           alert('It has been successfully created!');
           history.push('/home');

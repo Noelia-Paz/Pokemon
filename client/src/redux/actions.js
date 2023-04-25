@@ -11,7 +11,9 @@ export const CLEAN_DETAIL = 'CLEAN_DETAIL';
 
 export const getPokemons = () => {
   return async function (dispatch) {
-    const apiData = await axios.get('http://localhost:3001/pokemon');
+    const apiData = await axios.get(
+      process.env.REACT_APP_URL_SERVER_PORT + '/pokemon'
+    );
     const pokemons = apiData.data;
     dispatch({ type: GET_POKEMONS, payload: pokemons });
   };
@@ -19,7 +21,9 @@ export const getPokemons = () => {
 
 export const getTypes = () => {
   return async function (dispatch) {
-    const apiData = await axios.get('http://localhost:3001/type');
+    const apiData = await axios.get(
+      process.env.REACT_APP_URL_SERVER_PORT + '/type'
+    );
     const pokemonsTypes = apiData.data;
     dispatch({ type: GET_TYPES, payload: pokemonsTypes });
   };
@@ -27,7 +31,9 @@ export const getTypes = () => {
 
 export const getPokemonById = id => {
   return async function (dispatch) {
-    const apiData = await axios.get(`http://localhost:3001/pokemon/${id}`);
+    const apiData = await axios.get(
+      process.env.REACT_APP_URL_SERVER_PORT + `/pokemon/${id}`
+    );
     const pokemonId = apiData.data;
     dispatch({ type: GET_POKEMON_BY_ID, payload: pokemonId });
   };
@@ -37,7 +43,7 @@ export const getPokemonByName = name => {
   return async function (dispatch) {
     try {
       const apiData = await axios.get(
-        `http://localhost:3001/pokemon/name?name=${name}`
+        process.env.REACT_APP_URL_SERVER_PORT + `/pokemon/name?name=${name}`
       );
 
       const pokemonName = apiData.data;
