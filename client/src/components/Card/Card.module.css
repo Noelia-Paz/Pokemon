@@ -41,4 +41,12 @@
   color: grey;
   text-shadow: 2px 2px 4px burlywood;
 }
+
+.linkName{
+  text-decoration: none;
+}
+
+.linkName:hover {
+  background-color: yellow;
+}
   

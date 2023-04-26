@@ -17,7 +17,7 @@ const FilterAndSortPokemons = () => {
 
   useEffect(() => {
     dispatch(filterOrigin(originName));
-  }, [filterTypes, sortPokemons]);
+  }, [dispatch, filterTypes, sortPokemons]);
 
   const onChangeFilterType = event => {
     dispatch(filterType(event.target.value));

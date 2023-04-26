@@ -46,7 +46,7 @@ const getAllPokemons = async () => {
     ],
   });
 
-  const pokemonDataDb = databasePokemons.map(pokemon => {
+  const pokemonDataDb = databasePokemons.reverse().map(pokemon => {
     return createPokemonPropertiesDatabase(pokemon);
   });
   const apiPokemons = await axios.get(`${API_POKE_URL}?offset=20&limit=60"`);

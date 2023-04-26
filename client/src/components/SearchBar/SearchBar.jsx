@@ -10,7 +10,7 @@ const SearchBar = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = () => {
-    if (inputValueName == '') {
+    if (inputValueName === '') {
       alert('Please write a name!');
     }
     setIsLoading(true);

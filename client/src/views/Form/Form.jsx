@@ -40,7 +40,7 @@ const Form = () => {
 
   useEffect(() => {
     dispatch(getTypes());
-  }, []);
+  }, [dispatch]);
 
   const changeHandler = event => {
     const property = event.target.name;

@@ -11,7 +11,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getPokemons());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={style.divBody}>

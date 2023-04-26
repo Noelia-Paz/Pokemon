@@ -14,7 +14,7 @@ const Card = props => {
   return (
     <div className={style.bodyCard}>
       <img className={`${style.image} image-size`} src={props.image} alt="" />
-      <Link to={`/pokemon/${props.id}`}>
+      <Link className={style.linkName} to={`/pokemon/${props.id}`}>
         <h1 className={style.name}> {props.name.toLocaleUpperCase()}</h1>
       </Link>
       <div className={style.divType}>{elementsH1}</div>
