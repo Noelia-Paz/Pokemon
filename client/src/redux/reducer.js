@@ -7,6 +7,7 @@ import {
   FILTER_ORIGIN,
   CLEAN_DETAIL,
   ORDER_POKEMONS,
+  GET_POKEMON_ERROR,
 } from './actions';
 
 const initialState = {
@@ -14,11 +15,10 @@ const initialState = {
   types: [],
   pokemonId: {},
   pokemonName: {},
-  pokemonNotFound: false,
+  error: null,
   filterType: [],
   filterOrigin: [],
   sortPokemons: null,
-  isPokemonDatabase: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -39,8 +39,14 @@ const rootReducer = (state = initialState, action) => {
     case GET_POKEMON_BY_NAME:
       return {
         ...state,
-        pokemonName: action.payload.pokemonName,
-        pokemonNotFound: action.payload.pokemonNotFound,
+        pokemonName: action.payload,
+        error: null,
+      };
+    case GET_POKEMON_ERROR:
+      return {
+        ...state,
+        pokemonName: {},
+        error: action.payload,
       };
 
     case FILTER_TYPE:
@@ -95,6 +101,8 @@ const rootReducer = (state = initialState, action) => {
         myFilter.sort((a, b) => a.stroke - b.stroke);
       } else if (state.sortPokemons === 'attack-desc') {
         myFilter.sort((a, b) => b.stroke - a.stroke);
+      } else if (state.sortPokemons === 'none') {
+        myFilter.sort(() => Math.random() - 0.5);
       }
 
       return { ...state, filterOrigin: [...myFilter] };

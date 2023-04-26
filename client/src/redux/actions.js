@@ -8,6 +8,7 @@ export const FILTER_TYPE = 'FILTER_TYPE';
 export const FILTER_ORIGIN = 'FILTER_ORIGIN';
 export const ORDER_POKEMONS = 'ORDER_POKEMONS';
 export const CLEAN_DETAIL = 'CLEAN_DETAIL';
+export const GET_POKEMON_ERROR = 'GET_POKEMON_ERROR';
 
 export const getPokemons = () => {
   return async function (dispatch) {
@@ -45,30 +46,24 @@ export const getPokemonByName = name => {
       const apiData = await axios.get(
         process.env.REACT_APP_URL_SERVER_PORT + `/pokemon/name?name=${name}`
       );
-
       const pokemonName = apiData.data;
 
       dispatch({
         type: GET_POKEMON_BY_NAME,
-        payload: { pokemonName, pokemonNotFound: false },
+        payload: pokemonName,
       });
     } catch (error) {
-      const pokemonName = {};
-      if (!!name) {
+      if (!name) {
         dispatch({
-          type: GET_POKEMON_BY_NAME,
-          payload: { pokemonName, pokemonNotFound: true },
+          type: GET_POKEMON_ERROR,
+          payload: error.message,
         });
-      } else {
-        dispatch({
-          type: GET_POKEMON_BY_NAME,
-          payload: { pokemonName, pokemonNotFound: false },
-        });
+        return;
       }
+      alert(error.response.data.message);
     }
   };
 };
-
 export const filterType = type => {
   return {
     type: FILTER_TYPE,

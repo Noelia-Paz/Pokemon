@@ -81,7 +81,7 @@ const FilterAndSortPokemons = () => {
       <div className={style.div}>
         <label htmlFor="sort">Sort </label>
         <select name="name" className={style.select} onChange={onChangeOrder}>
-          <option value={null}>None </option>
+          <option value="none">None </option>
           <option value="name-asc">Name (A-Z)</option>
           <option value="name-desc">Name (Z-A)</option>
           <option value="attack-asc">Attack (minor to major) </option>

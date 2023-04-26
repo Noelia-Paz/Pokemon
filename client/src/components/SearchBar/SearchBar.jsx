@@ -6,12 +6,17 @@ import { getPokemonByName } from '../../redux/actions';
 const SearchBar = () => {
   const dispatch = useDispatch();
 
-  const [pokemonName, setPokemonName] = useState('');
+  const [inputValueName, setInputValueName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = () => {
+    if (inputValueName == '') {
+      alert('Please write a name!');
+    }
     setIsLoading(true);
-    dispatch(getPokemonByName(pokemonName)).finally(() => setIsLoading(false));
+    dispatch(getPokemonByName(inputValueName)).finally(() =>
+      setIsLoading(false)
+    );
   };
 
   return (
@@ -20,7 +25,8 @@ const SearchBar = () => {
         placeholder="Write a Name"
         className={styles.input}
         type="search"
-        onChange={event => setPokemonName(event.target.value)}
+        value={inputValueName}
+        onChange={event => setInputValueName(event.target.value)}
       />
       {isLoading ? (
         <p className={styles.isLoading}>Searching...</p>

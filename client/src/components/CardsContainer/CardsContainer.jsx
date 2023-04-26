@@ -3,14 +3,12 @@ import { useSelector } from 'react-redux';
 import Card from '../Card/Card';
 import style from './CardsContainer.module.css';
 import { useDispatch } from 'react-redux';
-import { getPokemonByName } from '../../redux/actions';
 
 const ITEMS_PER_PAGE = 12;
 
 const CardContainer = () => {
   const dispatch = useDispatch();
   const pokemonName = useSelector(state => state.pokemonName);
-  const pokemonNotFound = useSelector(state => state.pokemonNotFound);
   const filterOrigin = useSelector(state => state.filterOrigin);
 
   const [filteredPokemonName, setFilteredPokemonName] = useState({});
@@ -20,13 +18,6 @@ const CardContainer = () => {
   useEffect(() => {
     setFilteredPokemonName(pokemonName);
   }, [dispatch, pokemonName]);
-
-  useEffect(() => {
-    if (pokemonNotFound) {
-      alert('Pokemon Not Found');
-    }
-    dispatch(getPokemonByName(''));
-  }, [dispatch, pokemonNotFound]);
 
   useEffect(() => {
     setCurrentPage(1);
