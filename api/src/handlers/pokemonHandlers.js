@@ -3,6 +3,7 @@ const {
   getPokemonId,
   getPokemonName,
   createPokemon,
+  deletePokemonId,
 } = require('../controllers/pokemonController');
 
 const getPokemonHandler = async (req, res) => {
@@ -33,6 +34,16 @@ const getPokemonNameHandler = async (req, res) => {
     res.status(200).json(pokemon);
   } catch (error) {
     res.status(404).json({ message: 'The Name does not exist' });
+  }
+};
+
+const deletePokemon = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const pokemonEliminado = await deletePokemonId(id);
+    res.status(200).json({ message: 'se a eliminado' });
+  } catch (error) {
+    res.status(404).json({ message: 'error al eliminar' });
   }
 };
 
@@ -76,4 +87,5 @@ module.exports = {
   getPokemonIdHandler,
   getPokemonNameHandler,
   createPokemonHandler,
+  deletePokemon,
 };

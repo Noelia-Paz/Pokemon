@@ -11,6 +11,8 @@
     padding: 20px;
     margin: 20px;
     text-align: center;
+    width: 60%;
+    height: 40vh;
   }
   
   .name {

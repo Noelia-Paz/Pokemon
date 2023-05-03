@@ -2,121 +2,117 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Card from '../Card/Card';
 import style from './CardsContainer.module.css';
+import {
+  getPokemonByName,
+  setMessage,
+  clearMessage,
+} from '../../redux/actions';
+import { useDispatch } from 'react-redux';
 
-const CardContainer = () => {
+const CardsContainer = () => {
+  const dispatch = useDispatch();
   const pokemonName = useSelector(state => state.pokemonName);
   const filterOrigin = useSelector(state => state.filterOrigin);
-  const [filteredPokemonName, setFilteredPokemonName] = useState({});
+  const message = useSelector(state => state.message);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [numPages, setNumPages] = useState(1);
-  const ITEMS_PER_PAGE = 12;
+  const [elementsPerPage, setElementsPerPage] = useState(12);
 
   useEffect(() => {
-    setFilteredPokemonName(pokemonName);
-  }, [pokemonName]);
-
-  useEffect(() => {
-    setCurrentPage(1);
+    dispatch(setMessage(null));
     setIsLoading(true);
-    setNumPages(Math.ceil(filterOrigin.length / ITEMS_PER_PAGE));
-    setIsLoading(false);
-  }, [filterOrigin]);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
 
-  const handlePageChange = page => {
-    setCurrentPage(page);
-  };
-
-  const handleFirstPageClick = () => {
-    setCurrentPage(1);
-  };
-
-  const handleLastPageClick = () => {
-    setCurrentPage(numPages);
-  };
+    dispatch(clearMessage());
+  }, [dispatch]);
 
   const handleCleanPokemon = () => {
-    setFilteredPokemonName({});
+    dispatch(getPokemonByName(''));
   };
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const filteredPokemon = filterOrigin.slice(startIndex, endIndex);
+  const indexOfLastElement = currentPage * elementsPerPage;
+  const indexOfFirstElement = indexOfLastElement - elementsPerPage;
+  const currentElements = filterOrigin.slice(
+    indexOfFirstElement,
+    indexOfLastElement
+  );
 
-  const pageButtons = [];
-  for (let i = 1; i <= numPages; i++) {
-    pageButtons.push(
-      <button
-        className={style.buttonPag}
-        key={i}
-        onClick={() => handlePageChange(i)}
-      >
-        {i}
-      </button>
-    );
+  const allPokemon = currentElements.length ? (
+    <div className={style.divCars}>
+      {currentElements.map(pokemon => (
+        <Card
+          key={pokemon.id}
+          id={pokemon.id}
+          image={pokemon.image}
+          name={pokemon.name}
+          stroke={pokemon.stroke}
+          type={pokemon.type}
+        />
+      ))}
+    </div>
+  ) : (
+    <p>{message}</p>
+  );
+
+  const filteredByName = Object.keys(pokemonName).length ? (
+    <div className={style.cardName}>
+      <Card
+        key={pokemonName.id}
+        id={pokemonName.id}
+        name={pokemonName.name}
+        image={pokemonName.image}
+        type={pokemonName.type}
+        stroke={pokemonName.stroke}
+      />
+      <div className={style.divButtonCarName}>
+        <button className={style.buttonCardName} onClick={handleCleanPokemon}>
+          Back
+        </button>
+      </div>
+    </div>
+  ) : null;
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(filterOrigin.length / elementsPerPage); i++) {
+    pageNumbers.push(i);
   }
 
   return (
-    <div className={style.divBody}>
-      {Object.keys(filteredPokemonName).length ? (
-        <div className={style.cardName}>
-          <Card
-            key={filteredPokemonName.id}
-            name={filteredPokemonName.name}
-            image={filteredPokemonName.image}
-            type={filteredPokemonName.type}
-            stroke={filteredPokemonName.stroke}
-          />
-          <div className={style.divButtonCarName}>
-            <button
-              className={style.buttonCardName}
-              onClick={handleCleanPokemon}
-            >
-              Back
-            </button>
-          </div>
-        </div>
+    <div>
+      {isLoading ? (
+        <p>Cargando...</p>
       ) : (
         <>
-          {isLoading ? (
-            <h1>Loading...</h1>
+          {filteredByName ? (
+            filteredByName
           ) : (
             <>
-              {filteredPokemon.length ? (
-                <>
-                  <div className={style.divCars}>
-                    {filteredPokemon.map(pokemon => (
-                      <Card
-                        key={pokemon.id}
-                        id={pokemon.id}
-                        image={pokemon.image}
-                        name={pokemon.name}
-                        stroke={pokemon.stroke}
-                        type={pokemon.type}
-                      />
-                    ))}
-                  </div>
-                  <div className={style.divButton}>
-                    <button
-                      className={style.buttonPag}
-                      onClick={handleFirstPageClick}
-                    >
-                      First page
-                    </button>
-                    {pageButtons}
-                    <button
-                      className={style.buttonPag}
-                      onClick={handleLastPageClick}
-                    >
-                      Last page
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <h1>Pokemon no encontrado</h1>
-                </>
-              )}
+              {allPokemon}
+              <div className={style.divButton}>
+                <button
+                  className={style.buttonPag}
+                  onClick={() => setCurrentPage(1)}
+                >
+                  First
+                </button>
+                {pageNumbers.map(number => (
+                  <button key={number} onClick={() => setCurrentPage(number)}>
+                    {number}
+                  </button>
+                ))}
+                <button
+                  className={style.buttonPag}
+                  onClick={() =>
+                    setCurrentPage(
+                      Math.ceil(filterOrigin.length / elementsPerPage)
+                    )
+                  }
+                >
+                  Last
+                </button>
+              </div>
             </>
           )}
         </>
@@ -125,4 +121,4 @@ const CardContainer = () => {
   );
 };
 
-export default CardContainer;
+export default CardsContainer;

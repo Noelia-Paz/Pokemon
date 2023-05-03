@@ -5,6 +5,7 @@ const {
   getPokemonIdHandler,
   getPokemonNameHandler,
   createPokemonHandler,
+  deletePokemon,
 } = require('../handlers/pokemonHandlers');
 const { validatePokemonName } = require('../util/validations/validationStatus');
 
@@ -17,5 +18,6 @@ pokemonRouter.get('/:idPokemon', getPokemonIdHandler);
 pokemonRouter.get('/', getPokemonHandler);
 
 pokemonRouter.post('/', createPokemonHandler);
+pokemonRouter.delete('/:id', deletePokemon);
 
 module.exports = pokemonRouter;

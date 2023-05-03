@@ -8,6 +8,8 @@ import {
   CLEAN_DETAIL,
   ORDER_POKEMONS,
   GET_POKEMON_ERROR,
+  SET_MESSAGE,
+  CLEAR_MESSAGE,
 } from './actions';
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   filterType: [],
   filterOrigin: [],
   sortPokemons: null,
+  message: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -28,6 +31,14 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         pokemons: action.payload,
         filterOrigin: action.payload,
+      };
+
+    case SET_MESSAGE:
+      return { ...state, message: action.payload };
+    case CLEAR_MESSAGE:
+      return {
+        ...state,
+        message: null,
       };
 
     case GET_TYPES:
@@ -93,6 +104,14 @@ const rootReducer = (state = initialState, action) => {
           : state.pokemons;
       }
 
+      if (myFilter.length === 0) {
+        return {
+          ...state,
+          filterOrigin: [],
+          message: 'No se encontraron Pokemones.',
+        };
+      }
+
       if (state.sortPokemons === 'name-asc') {
         myFilter.sort((a, b) => a.name.localeCompare(b.name));
       } else if (state.sortPokemons === 'name-desc') {
@@ -105,7 +124,7 @@ const rootReducer = (state = initialState, action) => {
         myFilter.sort(() => Math.random() - 0.5);
       }
 
-      return { ...state, filterOrigin: [...myFilter] };
+      return { ...state, filterOrigin: [...myFilter], message: null };
 
     case CLEAN_DETAIL:
       return {

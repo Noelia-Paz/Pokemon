@@ -1,7 +1,7 @@
 import CardsContainer from '../../components/CardsContainer/CardsContainer';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getPokemons } from '../../redux/actions';
+import { getPokemons, getPokemonByName } from '../../redux/actions';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import FilterAndSortPokemons from '../../components/FilterAndSortPokemons/FilterAndSortPokemons';
 import style from './Home.module.css';
@@ -11,6 +11,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getPokemons());
+    dispatch(getPokemonByName(''));
   }, [dispatch]);
 
   return (

@@ -9,6 +9,8 @@ export const FILTER_ORIGIN = 'FILTER_ORIGIN';
 export const ORDER_POKEMONS = 'ORDER_POKEMONS';
 export const CLEAN_DETAIL = 'CLEAN_DETAIL';
 export const GET_POKEMON_ERROR = 'GET_POKEMON_ERROR';
+export const SET_MESSAGE = 'SET_MESSAGE';
+export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 
 export const getPokemons = () => {
   return async function (dispatch) {
@@ -87,4 +89,17 @@ export const orderPokemons = valueOrder => {
 
 export const cleanDetail = () => {
   return { type: CLEAN_DETAIL };
+};
+
+export function setMessage(message) {
+  return {
+    type: SET_MESSAGE,
+    payload: message,
+  };
+}
+
+export const clearMessage = () => {
+  return {
+    type: CLEAR_MESSAGE,
+  };
 };

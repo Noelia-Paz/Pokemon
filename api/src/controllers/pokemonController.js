@@ -33,6 +33,12 @@ const createPokemonPropertiesApiPoke = pokemon => {
   };
 };
 
+const deletePokemonId = async id => {
+  const pokemonid = await Pokemon.findByPk(id);
+  const pokemon = await pokemonid.destroy();
+  return pokemon;
+};
+
 const getAllPokemons = async () => {
   const databasePokemons = await Pokemon.findAll({
     include: [
@@ -161,4 +167,5 @@ module.exports = {
   getPokemonId,
   getPokemonName,
   createPokemon,
+  deletePokemonId,
 };
