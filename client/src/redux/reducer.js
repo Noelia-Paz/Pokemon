@@ -108,7 +108,7 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           filterOrigin: [],
-          message: 'No se encontraron Pokemones.',
+          message: 'No Pokemon found with that filter.',
         };
       }
 

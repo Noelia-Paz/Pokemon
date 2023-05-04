@@ -5,6 +5,7 @@ import style from './CardsContainer.module.css';
 import {
   getPokemonByName,
   setMessage,
+  getPokemons,
   clearMessage,
 } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
@@ -23,13 +24,18 @@ const CardsContainer = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
 
     dispatch(clearMessage());
   }, [dispatch]);
 
   const handleCleanPokemon = () => {
     dispatch(getPokemonByName(''));
+  };
+
+  const handleCleanFiltro = () => {
+    dispatch(getPokemons());
+    dispatch(clearMessage());
   };
 
   const indexOfLastElement = currentPage * elementsPerPage;
@@ -53,7 +59,7 @@ const CardsContainer = () => {
       ))}
     </div>
   ) : (
-    <p>{message}</p>
+    <p className={style.pText}>{message}</p>
   );
 
   const filteredByName = Object.keys(pokemonName).length ? (
@@ -80,9 +86,9 @@ const CardsContainer = () => {
   }
 
   return (
-    <div>
+    <div className={style.divBodyCards}>
       {isLoading ? (
-        <p>Cargando...</p>
+        <p className={style.pText}>Searching...</p>
       ) : (
         <>
           {filteredByName ? (
@@ -90,29 +96,45 @@ const CardsContainer = () => {
           ) : (
             <>
               {allPokemon}
-              <div className={style.divButton}>
-                <button
-                  className={style.buttonPag}
-                  onClick={() => setCurrentPage(1)}
-                >
-                  First
-                </button>
-                {pageNumbers.map(number => (
-                  <button key={number} onClick={() => setCurrentPage(number)}>
-                    {number}
+
+              {currentElements.length ? (
+                <div className={style.divButton}>
+                  <button
+                    className={style.buttonPag}
+                    onClick={() => setCurrentPage(1)}
+                  >
+                    First
                   </button>
-                ))}
-                <button
-                  className={style.buttonPag}
-                  onClick={() =>
-                    setCurrentPage(
-                      Math.ceil(filterOrigin.length / elementsPerPage)
-                    )
-                  }
-                >
-                  Last
-                </button>
-              </div>
+                  {pageNumbers.map(number => (
+                    <button
+                      className={style.buttonPag}
+                      key={number}
+                      onClick={() => setCurrentPage(number)}
+                    >
+                      {number}
+                    </button>
+                  ))}
+                  <button
+                    className={style.buttonPag}
+                    onClick={() =>
+                      setCurrentPage(
+                        Math.ceil(filterOrigin.length / elementsPerPage)
+                      )
+                    }
+                  >
+                    Last
+                  </button>
+                </div>
+              ) : (
+                <div className={style.divButtonCarName}>
+                  <button
+                    className={style.buttonCardName}
+                    onClick={handleCleanFiltro}
+                  >
+                    Back
+                  </button>
+                </div>
+              )}
             </>
           )}
         </>
