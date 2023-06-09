@@ -24,3 +24,13 @@
     margin-left: 10px;
     color: floralwhite;
   }
+
+  @media only screen and (max-width: 800px) {
+    .body {
+      display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 60%;
+      margin: auto;
+    }
+  }

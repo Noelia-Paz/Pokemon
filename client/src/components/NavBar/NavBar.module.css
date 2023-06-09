@@ -34,3 +34,23 @@
   .title{
     font-size: 20px;
   }
+
+
+  @media only screen and (max-width: 1200px) {
+    .salir {
+      margin-right: 15px;
+    }
+  }
+
+
+  @media only screen and (max-width: 550px) {
+    .divLink {
+      display: flex;
+    flex-direction: column;
+    }
+
+
+    .link {
+      padding: 7px;
+    }
+  }

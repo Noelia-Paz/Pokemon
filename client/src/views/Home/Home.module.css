@@ -1,5 +1,5 @@
 .divBody{
-    background-color: red;
+    background-color: darkgoldenrod;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -7,3 +7,11 @@
 .SearchBar{
     padding-top: 70px;
 }
+
+
+@media only screen and (max-width: 800px) {
+    .divBody {
+        align-items: center;
+        height: 112vh;
+    }
+  }
