@@ -1,14 +1,16 @@
-import { Route } from 'react-router-dom';
-import './App.css';
-import { Detail, Form, Home, Landing } from './views';
-import NavBar from './components/NavBar/NavBar';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { Route } from "react-router-dom";
+import "./App.css";
+import { Detail, Form, Home, Landing } from "./views";
+import NavBar from "./components/NavBar/NavBar";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:3001";
 
 function App() {
   const location = useLocation();
   return (
     <div className="App">
-      {location.pathname !== '/' && <NavBar />}
+      {location.pathname !== "/" && <NavBar />}
       <Route exact path="/">
         <Landing />
       </Route>
