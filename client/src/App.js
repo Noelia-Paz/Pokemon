@@ -4,7 +4,7 @@ import { Detail, Form, Home, Landing } from "./views";
 import NavBar from "./components/NavBar/NavBar";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "https://pokemon-production-96fb.up.railway.app";
 
 function App() {
   const location = useLocation();
