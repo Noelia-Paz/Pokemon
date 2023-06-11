@@ -1,18 +1,21 @@
-import { Link } from 'react-router-dom';
-import style from './NavBar.module.css';
-import { getPokemonByName } from '../../redux/actions';
-import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
+import style from "./NavBar.module.css";
+import { getPokemonByName } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 
 const NavBar = () => {
   const dispatch = useDispatch();
 
   const handleCleanPokemon = () => {
-    dispatch(getPokemonByName(''));
+    dispatch(getPokemonByName(""));
   };
   return (
     <div className={style.navBar}>
-      <h1 className={style.title}>PokemonApi</h1>
-      <div>
+      <Link to="/home" className={style.link}>
+        <h1 className={style.title}>PokemonApi</h1>
+      </Link>
+
+      <div className={style.titleNav}>
         <Link to="/home" className={style.link}>
           HOME
         </Link>
