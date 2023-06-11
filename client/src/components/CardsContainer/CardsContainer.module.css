@@ -88,6 +88,10 @@ align-items: center;
   .divCars {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .cardName{
+    width: 50%;
+  }
 }
 
 
@@ -95,20 +99,12 @@ align-items: center;
   .divCars {
     grid-template-columns: repeat(2, 1fr);
   }
+
+
 }
 
 
-@media only screen and (max-width: 730px) {
-  .divCars {
-    grid-template-columns: repeat(1, 1fr);
-  }
 
-
-  .divButton{
-    margin-top: 20px;
-   
-  }
-}
 
 
 @media only screen and (max-width: 730px) {
