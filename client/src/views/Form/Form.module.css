@@ -109,8 +109,7 @@ margin-left: 165px;
   .inputGroup {
     flex-direction: column;
     justify-content: flex-start;
-    height: 130vh;
-    padding: 35px;
+    
   }
 
 
