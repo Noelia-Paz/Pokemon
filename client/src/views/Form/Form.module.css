@@ -117,7 +117,7 @@ margin-left: 165px;
 
 
   .divBody{
-    padding: 180px;
+    padding: 100px;
   }
   .buttonBack{
     margin-left: 0px;
@@ -152,8 +152,9 @@ margin-left: 165px;
 @media only screen and (max-width: 400px) {
  .divBody{
   width: 90%;
-  height: 115vh;
+  height: 145vh;
   padding: 20px;
+  justify-content: flex-start;
   
  }
  .form{
