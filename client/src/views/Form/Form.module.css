@@ -156,6 +156,10 @@ margin-left: 165px;
   padding: 20px;
   
  }
+ .form{
+  gap: none;
+  max-width: none;
+ }
 
   
 
