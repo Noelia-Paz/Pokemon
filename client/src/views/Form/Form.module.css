@@ -147,3 +147,18 @@ margin-left: 165px;
   
  
 }
+
+
+@media only screen and (max-width: 400px) {
+ .divBody{
+  width: 90%;
+  height: 115vh;
+  padding: 20px;
+  
+ }
+
+  
+
+  
+ 
+}
