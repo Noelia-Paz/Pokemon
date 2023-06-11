@@ -59,3 +59,21 @@
         background-color: #555555;
         color: white;
       }
+
+
+
+      @media only screen and (max-width: 770px) {
+        .divDetailCar{
+         width: 60%;
+        }
+        
+         
+        }
+
+      @media only screen and (max-width: 530px) {
+       .divDetailCar{
+        width: 90%;
+       }
+       
+        
+       }

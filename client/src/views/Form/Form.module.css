@@ -149,7 +149,7 @@ margin-left: 165px;
 }
 
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 530px) {
  .divBody{
   width: 90%;
   height: 145vh;
@@ -162,8 +162,5 @@ margin-left: 165px;
   max-width: none;
  }
 
-  
-
-  
  
 }
