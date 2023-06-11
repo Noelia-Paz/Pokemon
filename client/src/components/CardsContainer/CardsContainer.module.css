@@ -111,4 +111,21 @@ align-items: center;
 }
 
 
+@media only screen and (max-width: 730px) {
+  .divCars {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+
+  .divButton{
+    margin-top: 20px;
+   
+  }
+
+  .cardName{
+    width: 100%;
+  }
+}
+
+
  
