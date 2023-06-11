@@ -25,12 +25,20 @@
     color: floralwhite;
   }
 
+  @media only screen and (max-width: 1100px) {
+    .body {
+     
+    width: 80%;
+     
+    }
+  }
+
   @media only screen and (max-width: 800px) {
     .body {
       display: flex;
     flex-direction: column;
     margin-bottom: 10px;
-    width: 60%;
+    width: 225%;
       margin: auto;
     }
   }
