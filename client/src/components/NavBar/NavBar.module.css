@@ -51,15 +51,17 @@
 
 
     .link {
-      padding: 7px;
+      margin: 7px;
     }
+    .titleNav{
+      display: flex;
+      flex-direction: column;
+     }
   }
 
 
   @media only screen and (max-width: 400px) {
     .titleNav{
-      display:flex;
-      flex-direction: column;
       align-items: flex-start;
     }
   }

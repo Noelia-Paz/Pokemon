@@ -108,6 +108,9 @@ margin-left: 165px;
 @media only screen and (max-width: 810px) {
   .inputGroup {
     flex-direction: column;
+    justify-content: flex-start;
+    height: 130vh;
+    padding: 35px;
   }
 
 
@@ -117,7 +120,9 @@ margin-left: 165px;
 
 
   .divBody{
-    padding: 100px;
+    padding: 80px;
+    height: 130vh;
+    justify-content: flex-start;
   }
   .buttonBack{
     margin-left: 0px;
@@ -161,6 +166,7 @@ margin-left: 165px;
   gap: none;
   max-width: none;
  }
+ 
 
  
 }
